@@ -1,25 +1,26 @@
+///////NOT DONE/////
+
 #include <iostream>
 using namespace std;
 
 // Data structure to store Adjacency list nodes
 struct Node {
-	int val, cost;
+	int val;
 	Node* next;
 };
 
 // Data structure to store graph edges
 struct Edge {
-	int src, dest, weight;
+	int src, dest;
 };
 
 class Graph
 {
 	// Function to allocate new node of Adjacency List
-	Node* getAdjListNode(int value, int weight, Node* head)
+	Node* getAdjListNode(int dest, Node* head)
 	{
 		Node* newNode = new Node;
-		newNode->val = value;
-		newNode->cost = weight;
+		newNode->val = dest;
 
 		// point new node to current head
 		newNode->next = head;
@@ -33,7 +34,7 @@ public:
 
 	// An array of pointers to Node to represent
 	// adjacency list
-	 Node **head;
+	Node **head;
 
 	// Constructor
 	Graph(Edge edges[], int n, int N)
@@ -43,7 +44,7 @@ public:
 		this->N = N;
 
 		// initialize head pointer for all vertices
-		for (int i = 0; i < N; ++i)
+		for (int i = 0; i < N; i++)
 			head[i] = nullptr;
 
 		// add edges to the directed graph
@@ -51,10 +52,9 @@ public:
 		{
 			int src = edges[i].src;
 			int dest = edges[i].dest;
-			int weight = edges[i].weight;
 
 			// insert in the beginning
-			Node* newNode = getAdjListNode(dest, weight, head[src]);
+			Node* newNode = getAdjListNode(dest, head[src]);
 
 			// point head pointer to new node
 			head[src] = newNode;
@@ -62,7 +62,7 @@ public:
 			// Uncomment below lines for undirected graph
 
 			/*
-			newNode = getAdjListNode(src, weight, head[dest]);
+			newNode = getAdjListNode(src, head[dest]);
 
 			// change head pointer to point to the new node
 			head[dest] = newNode;
@@ -80,16 +80,13 @@ public:
 };
 
 // print all neighboring vertices of given vertex
-void printList(Node* ptr, int i)
+void printList(Node* ptr)
 {
 	while (ptr != nullptr)
 	{
-		cout << "(" << i << ", " << ptr->val
-			<< ", " << ptr->cost << ") ";
-
+		cout << " -> " << ptr->val << " ";
 		ptr = ptr->next;
 	}
-
 	cout << endl;
 }
 
@@ -99,9 +96,9 @@ int main()
 	// array of graph edges as per above diagram.
 	Edge edges[] =
 	{
-		// (x, y, w) -> edge from x to y having weight w
-		{ 0, 1, 6 }, { 1, 2, 7 }, { 2, 0, 5 }, { 2, 1, 4 },
-		{ 3, 2, 10 }, { 4, 5, 1 }, { 5, 4, 3 }
+		// pair (x, y) represents edge from x to y
+		{ 0, 1 }, { 1, 2 }, { 2, 0 }, { 2, 1 },
+		{ 3, 2 }, { 4, 5 }, { 5, 4 }
 	};
 
 	// Number of vertices in the graph
@@ -109,15 +106,18 @@ int main()
 
 	// calculate number of edges
 	int n = sizeof(edges)/sizeof(edges[0]);
-
+    // cout << "helllo " << n << " " <<  sizeof(edges) << " " << sizeof(edges[0]) << endl;
 	// construct graph
 	Graph graph(edges, n, N);
 
 	// print adjacency list representation of graph
 	for (int i = 0; i < N; i++)
 	{
-		// print all neighboring vertices of vertex i
-		printList(graph.head[i], i);
+		// print given vertex
+		cout << i << " --";
+
+		// print all its neighboring vertices
+		printList(graph.head[i]);
 	}
 
 	return 0;
