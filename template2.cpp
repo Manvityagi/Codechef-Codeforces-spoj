@@ -29,7 +29,7 @@ static const int _ = []() {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
   cout.tie(NULL);
-  return 0;k
+  return 0;
 }();
 
 	int t ;
