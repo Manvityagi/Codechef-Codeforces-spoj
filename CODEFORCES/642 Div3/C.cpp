@@ -15,23 +15,35 @@ const int MAX_N = 5e5 + 5;
 int main()
 {
 
-    int t;
-    cin >> t;
-    while (t--)
+    LL a, b, c, d, luckz = -1, lucky = -1, res = 0;
+    cin >> a >> b >> c >> d;
+    for (int i = c; i <= d; i++)
     {
-        LL n;
-        cin >> n;
-        LL ans = 0;
-        LL freq = n / 2;
-        LL mul = 8;
-        for (int i = 1; i <= freq; i++)
+        for (int j = b; j <= c; j++)
         {
-            ans += (i * mul);
-            mul *= i;
-        }
+            if ((i - j) <= b)
+            {
+                luckz = i;
+                lucky = j;
+            }
 
-        cout << ans << "\n";
+            if (luckz != -1)
+            {
+                LL cnt = (b - a) - (luckz - lucky) + 1;
+                if(cnt > 0)
+                res += cnt;
+            }
+            luckz = -1;
+        }
     }
+
+    if (luckz == -1)
+    {
+        cout << 0;
+        return 0;
+    }
+
+    cout << res;
 
     return 0;
 }
