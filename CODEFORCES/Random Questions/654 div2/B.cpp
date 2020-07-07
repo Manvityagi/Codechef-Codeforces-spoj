@@ -11,10 +11,9 @@ using namespace std;
 #define MOD1 1000000007
 #define MOD2 1000000009
 #define loop(i, a, b) for (int i = a; i < b; i++)
-LL n, m, x;
+LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
-LL x1, y1, x2, y2;
 
 int main()
 {
@@ -28,10 +27,17 @@ int main()
     cin >> t;
     while (t--)
     {
-        cin >> x1 >> y1 >> x2 >> y2;
-
-        cout << (x2 - x1) * (y2 - y1) + 1 << "\n";
+        LL ans = 0;
+        LL n, r;
+        cin >> n >> r;
+        if (r < n)
+            ans = (r * (r + 1)) >> 1;
+        else
+        {
+            ans = (n * (n - 1)) >> 1;
+            ans += 1;
+        }
+        cout << ans << "\n";
     }
-
     return 0;
 }
