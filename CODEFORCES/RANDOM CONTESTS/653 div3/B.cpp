@@ -23,28 +23,27 @@ int main()
         cout.tie(NULL);
         return 0;
     }();
-
-    LL n, k;
-    cin >> n >> k;
-    vector<int> arr(n), res;
-    vector<pair<int, int>> a;
-
-    loop(i, 0, n)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        cin >> arr[i];
-        a.emplace_back(arr[i], i);
-    }
+        LL n;
+        cin >> n;
+        int two = 0, three = 0;
 
-    int i = 0;
-    while (i < n && k > 0)
-    {
-        k -= a[i].first;
-        res.push_back(a[i].second);
-        i++;
-    }
-    cout << res.size() << "\n";
-    for (auto a : res)
-        cout << a << " ";
+        while (n % 3 == 0)
+            n = n / 3, three++;
 
+        while (n % 2 == 0)
+            n = n / 2, two++;
+
+        if (n > 1 || two > three)
+        {
+            cout << -1 << "\n";
+            continue;
+        }
+
+        cout << three + three - two << "\n";
+    }
     return 0;
 }

@@ -23,28 +23,21 @@ int main()
         cout.tie(NULL);
         return 0;
     }();
-
-    LL n, k;
-    cin >> n >> k;
-    vector<int> arr(n), res;
-    vector<pair<int, int>> a;
-
-    loop(i, 0, n)
+    int t = 1;
+    // cin >> t;
+    while (t--)
     {
-        cin >> arr[i];
-        a.emplace_back(arr[i], i);
-    }
+        LL r, x1, y1, x2, y2;
+        cin >> r >> x1 >> y1 >> x2 >> y2;
 
-    int i = 0;
-    while (i < n && k > 0)
-    {
-        k -= a[i].first;
-        res.push_back(a[i].second);
-        i++;
-    }
-    cout << res.size() << "\n";
-    for (auto a : res)
-        cout << a << " ";
+        if (x1 == x2 && y1 == y2)
+        {
+            cout << 0;
+            return 0;
+        }
 
+        int dist = ceil(sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+        cout << ceil(dist / (2.0 * r));
+    }
     return 0;
 }

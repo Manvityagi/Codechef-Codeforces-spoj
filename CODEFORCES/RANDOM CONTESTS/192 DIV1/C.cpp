@@ -23,28 +23,12 @@ int main()
         cout.tie(NULL);
         return 0;
     }();
-
-    LL n, k;
-    cin >> n >> k;
-    vector<int> arr(n), res;
-    vector<pair<int, int>> a;
-
-    loop(i, 0, n)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        cin >> arr[i];
-        a.emplace_back(arr[i], i);
-    }
-
-    int i = 0;
-    while (i < n && k > 0)
-    {
-        k -= a[i].first;
-        res.push_back(a[i].second);
-        i++;
-    }
-    cout << res.size() << "\n";
-    for (auto a : res)
-        cout << a << " ";
-
+        LL n;
+        cin >> n;
+     }
     return 0;
 }
