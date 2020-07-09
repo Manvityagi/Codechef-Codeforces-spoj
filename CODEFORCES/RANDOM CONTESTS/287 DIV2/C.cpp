@@ -17,16 +17,11 @@ int movey[] = {1, -1, 0, 0};
 
 void helper(LL h, LL ex, LL &i, bool left)
 {
-    // cout << h << " " << ex << " " << i << "\n";
-
     if (h <= 0 || ex <= 0)
         return;
-
+        
     LL total = 1LL << h; //nodes on last level
-
     // cout << "Nodes on last level " << total << "\n";
-
-    //Ye calls tab honge jab sequnce me L hoga , otherwise iske ulte calls honge,
     if (left)
     {
         if (ex > total / 2)
