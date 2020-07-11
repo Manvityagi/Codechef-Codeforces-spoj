@@ -23,12 +23,53 @@ int main()
         cout.tie(NULL);
         return 0;
     }();
-    int t;
-    cin >> t;
+    int t = 1;
+    // cin >> t;
     while (t--)
     {
         LL n;
         cin >> n;
-     }
+        vector<int> extras;
+        vector<int> arr(n + 1), ans, present(n + 1, 0);
+        for (int i = 1; i <= n; i++)
+        {
+            cin >> arr[i];
+            present[arr[i]] = 1;
+        }
+        for (int i = 0; i <= n; i++)
+            if (!present[i])
+                extras.push_back(i);
+        extras.push_back(n + 1);
+
+        int e = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            //if i == 1,
+            //if a[i] = 0
+            //ans[i] = extras me se kuch
+            //if(a[i] == 1)
+            //ans[i] = 0
+
+            //if arr[i] != arr[i-1]
+            //ans[i] = ans[i-1]
+            //else
+            //ans[i] = extras[e++]
+
+            if (i == 1)
+            {
+                if (arr[i] == 0)
+                    ans[i] = extras[e++];
+                else
+                    ans[i] = 0;
+            }
+            else if (arr[i] != arr[i - 1])
+                ans[i] = ans[i - 1];
+            else
+                ans[i] = extras[e++];
+        }
+
+        for (auto a : ans)
+            cout << a << " ";
+    }
     return 0;
 }

@@ -23,7 +23,7 @@ int main()
         cout.tie(NULL);
         return 0;
     }();
-    int t = 1;
+    int t;
     cin >> t;
     while (t--)
     {

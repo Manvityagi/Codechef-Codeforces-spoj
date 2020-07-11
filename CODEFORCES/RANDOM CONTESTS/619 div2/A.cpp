@@ -27,8 +27,31 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-     }
+        string a, b, c;
+        cin >> a >> b >> c;
+
+        int n = a.size();
+        bool found = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i] == b[i] && a[i] != c[i])
+            {
+                found = 1;
+                cout << "NO\n";
+                break;
+            }
+
+            if (c[i] != a[i] && c[i] != b[i])
+            {
+                found = 1;
+                cout << "NO\n";
+                break;
+            }
+        }
+
+        if(!found){
+            cout << "YES\n";
+        }
+    }
     return 0;
 }

@@ -27,8 +27,8 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
+        cin >> n >> m;
+        
      }
     return 0;
 }
