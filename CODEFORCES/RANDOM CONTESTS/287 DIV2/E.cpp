@@ -1,72 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define PB push_back
+#define LL long long
 #define F first
 #define S second
 #define MP make_pair
-#define LL long long
-#define ULL unsigned long long
-#define LB lower_bound
-#define MOD1 1000000007
-#define MOD2 1000000009
-#define loop(i, a, b) for (int i = a; i < b; i++)
-LL n, m;
-LL v, e;
-vector<vector<pair<int, int>>> g;
-vector<int> visited;
-int total_repaired = 0;
-int movex[] = {0, 0, 1, -1};
-int movey[] = {1, -1, 0, 0};
-vector<vector<int>> levels(100009,vector<int>(2); //2 cols -> col1 = level no, col2 = count of repaired paths
+const int N = 1e5 + 10;
+vector<pair<int, int>> g[N];
+vector<pair<int, pair<int, int>>> edges;
 
-void bfs(int x)
+void bfs(int src, vector<int> &dis, vector<int> &cnt)
 {
+    dis[src] = 0;
     queue<int> q;
-    q.push(x);
-    visited[x] = 1;
-    while (!q.empty())
+    q.emplace(src);
+    while (q.size())
     {
-        int front = q.front();
+        int src = q.front();
         q.pop();
-        for (auto node : g[front])
+        for (auto &p : g[src])
         {
-            int dest = node.first;
-            if (visited[dest])
+            int dest = p.F, status = p.S;
+            if (~dis[dest])
                 continue;
-            int status = node.second;
-            levels[dest][0] = levels[front][0] + 1;
-            levels[dest][1] += levels[front][1] + status;
+            dis[dest] = dis[src] + 1;
+            cnt[dest] = cnt[src] + status;
             q.emplace(dest);
-            visited[dest] = 1;
         }
     }
 }
 
-int solve(int x)
-{
-    int level = levels[x][0];
-    int ans = INT_MAX;
-
-    //level-1 waalo pe jaake comparisons karne hai
-    for (int i = 1; i < n; i++)
-    {
-        if (levels[i][0] == level - 1)
-        {
-            //possible candidate for shortest path
-            int to_repair = levels[i][1];
-            //nth aur n-1th ke beech me jo node hai wo 0 hai to to_repair += 1;
-
-            int to_break = total_repaired - to_repair;
-            if (ans < to_repair + to_break)
-            {
-                ans = to_repair + to_break;
-            }
-        }
-    }
-    return ans;
-}
-
-int main()
+main()
 {
     static const int _ = []() {
         ios::sync_with_stdio(false);
@@ -74,25 +37,75 @@ int main()
         cout.tie(NULL);
         return 0;
     }();
-    int t = 1;
-    // cin >> t;
-    while (t--)
+    LL v, e;
+    cin >> v >> e;
+    for (int i = 0; i < e; i++)
     {
-        cin >> v >> e;
-        g.resize(v);
-        visited.resize(v);
-        for (int i = 0; i < n; i++)
-        {
-            int src, dest, status;
-            cin >> src >> dest >> status;
-            if (status)
-                total_repaired++;
-            g[src].emplace_back(dest, status);
-            g[dest].emplace_back(src, status);
-        }
-
-        bfs(1);
-        cout << solve(n);
+        int src, dest, status;
+        cin >> src >> dest >> status;
+        g[src].emplace_back(dest, status);
+        g[dest].emplace_back(src, status);
+        edges.emplace_back(MP(status, MP(src, dest)));
     }
+    //dis[0] = vector containing distances of each node from 1st node
+    //dis[1] = vector conatining distance of each node from nth node
+
+    //cnt[0] = count of good roads from 1 to i
+    //cnt[1] = count of bad roads from n to i
+
+    vector<int> dis[2], cnt[2];
+    for (int i = 0; i <= 1; i++)
+    {
+        dis[i] = vector<int>(v + 1, -1);
+        cnt[i] = vector<int>(v + 1, 0);
+    }
+
+    bfs(1, dis[0], cnt[0]);
+    bfs(v, dis[1], cnt[1]);
+
+    vector<int> parent(v + 1, -1);
+
+    int src = 1;
+    for (int distance = dis[1][1] - 1; distance >= 0; distance--)
+    {
+        int tmp, good_roads = -1;
+        for (auto &p : g[src])
+        {
+            int dest = p.F;
+            if (parent[src] == dest)
+            {
+                continue;
+            }
+            if (dis[1][dest] == distance && cnt[0][dest] + cnt[1][dest] > good_roads)
+            {
+                good_roads = cnt[0][dest] + cnt[1][dest];
+                tmp = dest;
+            }
+        }
+        parent[tmp] = src;
+        src = tmp;
+    }
+
+    vector<pair<pair<int, int>, int>> ans;
+    for (auto p : edges)
+    {
+        auto edge = p.S;
+        auto status = p.F;
+        if (parent[edge.first] == edge.second || parent[edge.second] == edge.first)
+        {
+            if (!status)
+            {
+                ans.emplace_back(edge, 1);
+            }
+        }
+        else if (status)
+        {
+            ans.emplace_back(edge, 0);
+        }
+    }
+
+    cout << ans.size() << "\n";
+    for (auto &e : ans)
+        cout << e.F.F << " " << e.F.S << " " << e.S << "\n";
     return 0;
 }
