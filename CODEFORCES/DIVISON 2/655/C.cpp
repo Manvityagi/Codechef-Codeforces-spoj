@@ -27,22 +27,37 @@ int main()
     cin >> t;
     while (t--)
     {
+        LL n;
         cin >> n;
-        vector<LL> s(n + 1);
-        for (int i = 1; i <= n; i++)
-            cin >> s[i];
-        int ans = 1;
-        vector<int> dp(n + 1, 1);
+        bool sorted = 1;
+        vector<int> arr(n + 1);
         for (int i = 1; i <= n; i++)
         {
-            for (int j = 1; j * i <= n; j++)
-            {
-                int add = dp[j * i] > dp[i] ? 1 : 0;
-                if (add)
-                    dp[j * i] = max(dp[j * i], 1 + dp[i]);
-            }
-            ans = max(ans, dp[i]);
+            cin >> arr[i];
+            if (i != arr[i])
+                sorted = 0;
         }
+
+        if (sorted)
+        {
+            cout << 0 << "\n";
+            continue;
+        }
+
+        int bad_seg = 0;
+
+        int ans = 1;
+        for (int i = 1; i <= n; i++)
+        {
+            if (arr[i] == i && arr[i + 1] != i + 1)
+                bad_seg++;
+            if (bad_seg >= 2)
+            {
+                ans = 2;
+                break;
+            }
+        }
+
         cout << ans << "\n";
     }
     return 0;

@@ -14,6 +14,45 @@ using namespace std;
 LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
+const int N = 1e6 + 10;
+vector<int> f(N, 2);
+bool prime(int n)
+{
+    // Assumes that n is a positive natural number
+    // We know 1 is not a prime number
+    if (n == 1)
+    {
+        return false;
+    }
+
+    int i = 2;
+    // This will loop from 2 to int(sqrt(x))
+    while (i * i <= n)
+    {
+        // Check if i divides x without leaving a remainder
+        if (n % i == 0)
+        {
+            // This means that n has a factor in between 2 and sqrt(n)
+            // So it is not a prime number
+            return false;
+        }
+        i += 1;
+    }
+    // If we did not find any factor in the above loop,
+    // then n is a prime number
+    return true;
+}
+int helper(int n)
+{
+
+    for (int j = 3; j * j <= n; j += 2)
+    {
+        if (n % j == 0)
+        {
+            return j;
+        }
+    }
+}
 
 int main()
 {
@@ -25,26 +64,28 @@ int main()
     }();
     int t = 1;
     cin >> t;
+    preprocess();
     while (t--)
     {
-        cin >> n;
-        vector<LL> s(n + 1);
-        for (int i = 1; i <= n; i++)
-            cin >> s[i];
-        int ans = 1;
-        vector<int> dp(n + 1, 1);
-        for (int i = 1; i <= n; i++)
-        {
-            for (int j = 1; j * i <= n; j++)
-            {
-                int add = dp[j * i] > dp[i] ? 1 : 0;
-                if (add)
-                    dp[j * i] = max(dp[j * i], 1 + dp[i]);
-            }
+        LL n, k;
+        cin >> n >> k;
 
-            ans = max(ans, dp[i]);
+        if (!(n & 1))
+        {
+            cout << n + k * 2 << "\n";
         }
-        cout << ans << "\n";
+        else
+        {
+            if (prime(n))
+            {
+                cout << 2 * n + (k - 1) * 2 << "\n";
+            }
+            else
+            {
+                LL temp = helper(n);
+                cout << n + (k - 1) * 2 + temp << "\n";
+            }
+        }
     }
     return 0;
 }

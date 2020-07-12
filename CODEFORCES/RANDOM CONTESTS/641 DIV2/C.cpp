@@ -29,6 +29,36 @@ int main()
     {
         LL n;
         cin >> n;
-     }
+        bool sorted = 1;
+        vector<int> arr(n + 1), wrong;
+        for (int i = 1; i <= n; i++)
+        {
+            cin >> arr[i];
+            if (i != arr[i])
+            {
+                wrong.push_back(i);
+                sorted = 0;
+            }
+        }
+
+        if (sorted)
+        {
+            cout << 0 << "\n";
+            continue;
+        }
+
+        int ans = 1;
+
+        for (int i = 1; i < wrong.size(); i++)
+        {
+            if (wrong[i] - wrong[i - 1] != 1)
+            {
+                ans = 2;
+                break;
+            }
+        }
+
+        cout << ans << "\n";
+    }
     return 0;
 }

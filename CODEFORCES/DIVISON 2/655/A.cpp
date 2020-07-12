@@ -27,23 +27,17 @@ int main()
     cin >> t;
     while (t--)
     {
+        LL n;
         cin >> n;
-        vector<LL> s(n + 1);
-        for (int i = 1; i <= n; i++)
-            cin >> s[i];
-        int ans = 1;
-        vector<int> dp(n + 1, 1);
-        for (int i = 1; i <= n; i++)
+
+
+        for(int i = 0; i < n; i++)
         {
-            for (int j = 1; j * i <= n; j++)
-            {
-                int add = dp[j * i] > dp[i] ? 1 : 0;
-                if (add)
-                    dp[j * i] = max(dp[j * i], 1 + dp[i]);
-            }
-            ans = max(ans, dp[i]);
+            cout << 1 << " ";
         }
-        cout << ans << "\n";
-    }
+
+        cout << "\n";
+
+     }
     return 0;
 }
