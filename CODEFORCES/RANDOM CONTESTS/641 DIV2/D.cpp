@@ -1,20 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-#define PB push_back
-#define F first
-#define S second
-#define MP make_pair
 #define LL long long
-#define ULL unsigned long long
-#define LB lower_bound
-#define MOD1 1000000007
-#define MOD2 1000000009
-#define loop(i, a, b) for (int i = a; i < b; i++)
-LL n, m;
-int movex[] = {0, 0, 1, -1};
-int movey[] = {1, -1, 0, 0};
-
 int main()
 {
     static const int _ = []() {
@@ -27,8 +13,63 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-     }
+        LL n, k;
+        cin >> n >> k;
+        vector<int> arr(n);
+        bool hopes = 0;
+        for (auto &i : arr)
+        {
+            cin >> i;
+            if (i == k)
+                hopes = 1;
+        }
+
+        if (!hopes)
+        {
+            cout << "no\n";
+            continue;
+        }
+        if (n == 1)
+        {
+            if (arr[0] == k)
+                cout << "yes\n";
+            else
+                cout << "no\n";
+            continue;
+        }
+
+        bool possible = 0;
+        for (int i = 0; i < n; i++)
+        {
+            //2 length subarrays
+            if (i + 1 < n && min(arr[i], arr[i + 1]) >= k)
+            {
+                possible = 1;
+                break;
+            }
+        }
+
+        if (possible)
+        {
+            cout << "yes\n";
+            continue;
+        }
+
+        //3 length subarrays
+        for (int i = 2; i < n; i++)
+        {
+            vector<int> tmp({arr[i], arr[i - 1], arr[i - 2]});
+            sort(tmp.begin(), tmp.end());
+            if (tmp[1] >= k)
+            {
+                possible = 1;
+                break;
+            }
+        }
+        if (possible)
+            cout << "yes\n";
+        else
+            cout << "no\n";
+    }
     return 0;
 }

@@ -1,19 +1,51 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-#define PB push_back
 #define F first
 #define S second
 #define MP make_pair
 #define LL long long
-#define ULL unsigned long long
-#define LB lower_bound
-#define MOD1 1000000007
-#define MOD2 1000000009
-#define loop(i, a, b) for (int i = a; i < b; i++)
-LL n, m;
-int movex[] = {0, 0, 1, -1};
-int movey[] = {1, -1, 0, 0};
+#define pii pair<int, int>
+
+LL expo(LL x, LL n)
+{
+    if (x == 1 || n == 0)
+        return 1;
+    if (n == 1)
+        return x;
+
+    LL ans = expo(x, n / 2);
+    ans *= ans;
+
+    if (n & 1)
+        ans *= x;
+
+    return x;
+}
+vector<int> factors(int x)
+{
+    int lmt = sqrt(x);
+    vector<int> f;
+    if (x % 2 == 0)
+    {
+        while (x % 2 == 0)
+            x /= 2;
+        f.push_back(2);
+    }
+
+    for (int i = 3; i <= lmt; i += 2)
+    {
+        if (x % i == 0)
+        {
+            while (x % i == 0)
+                x /= i;
+            f.push_back(i);
+        }
+    }
+
+    if (x > 2)
+        f.push_back(x);
+    return f;
+}
 
 int main()
 {
@@ -24,39 +56,40 @@ int main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    // cin >> t;
+    map<pii, int> mp;
     while (t--)
     {
         LL n;
         cin >> n;
-        bool sorted = 1;
-        vector<int> arr(n + 1), wrong;
-        for (int i = 1; i <= n; i++)
+        vector<int> arr(n);
+        for (auto &i : arr)
         {
-            cin >> arr[i];
-            if (i != arr[i])
+            cin >> i;
+            vector<int> fact = factors(i);
+            for (auto j : fact)
             {
-                wrong.push_back(i);
-                sorted = 0;
+                int cnt = 1;
+                while (i % j == 0)
+                {
+                    mp[MP(j, cnt)]++;
+                    i /= j;
+                    cnt++;
+                }
+                mp[MP(j, 0)]++;
             }
         }
 
-        if (sorted)
+        map<int, int> power;
+        for (auto i : mp)
         {
-            cout << 0 << "\n";
-            continue;
+            if (i.S >= n - 1)
+                power[i.F.F] = max(power[i.F.F], i.F.S);
         }
 
-        int ans = 1;
-
-        for (int i = 1; i < wrong.size(); i++)
-        {
-            if (wrong[i] - wrong[i - 1] != 1)
-            {
-                ans = 2;
-                break;
-            }
-        }
+        LL ans = 1;
+        for (auto i : power)
+            ans *= expo(i.F, i.S);
 
         cout << ans << "\n";
     }
