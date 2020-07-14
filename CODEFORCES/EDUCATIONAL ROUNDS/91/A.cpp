@@ -30,36 +30,31 @@ int main()
     {
         LL n;
         cin >> n;
-        vector<int> arr(n);
-        for (auto &i : arr)
-            cin >> i;
+        vector<pii> arr(n);
+        for (int i = 0; i < n; i++)
+        {
+            cin >> arr[i].F;
+            arr[i].S = i;
+        }
 
-        vector<pii> a(n);
-        loop(i, 0, n)
+        sort(arr.begin(), arr.end());
+
+        bool poss = 0;
+        int mn_idx = INT_MAX, mx_idx = INT_MIN;
+        for (int i = 0; i < n; i++)
         {
-            a[i].F = arr[i];
-            a[i].S = i;
-        }
-        bool pos = 0;
-        sort(a.begin(), a.end());
-        int maxi = INT_MIN;
-        int mini = INT_MAX;
-        loop(i, 0, n)
-        {
-            if (i > 1)
+            if (arr[i].S > mn_idx && arr[i].S < mx_idx)
             {
-                if (a[i].S > mini && a[i].S < maxi)
-                {
-                    cout << "YES\n";
-                    cout << mini + 1 << " " << a[i].S + 1 << " " << maxi + 1 << "\n";
-                    pos = 1;
-                    break;
-                }
+                cout << "YES\n";
+                cout << mn_idx + 1 << " " << arr[i].S + 1 << " " << mx_idx + 1 << "\n";
+                poss = 1;
+                break;
             }
-            maxi = max(maxi, a[i].S);
-            mini = min(mini, a[i].S);
+            mn_idx = min(mn_idx, arr[i].S);
+            mx_idx = max(mx_idx, arr[i].S);
         }
-        if (!pos)
+
+        if (!poss)
             cout << "NO\n";
     }
     return 0;

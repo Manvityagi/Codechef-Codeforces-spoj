@@ -25,10 +25,46 @@ int main()
     }();
     int t = 1;
     cin >> t;
+    unordered_map<char, char> mp;
     while (t--)
     {
-        LL n;
-        cin >> n;
-     }
+        int R = 0, P = 0, S = 0;
+        string s;
+        cin >> s;
+        for (auto c : s)
+        {
+            if (c == 'R')
+            {
+                R++;
+            }
+            else if (c == 'P')
+            {
+                P++;
+            }
+            else
+            {
+                S++;
+            }
+        }
+
+        char ans;
+        int maxi = max(R, (max(P, S)));
+        if (maxi == R)
+        {
+            ans = 'P';
+        }
+        else if (maxi == P)
+        {
+            ans = 'S';
+        }
+        else
+        {
+            ans = 'R';
+        }
+
+        for (int i = 0; i < n; i++)
+            cout << ans;
+        cout << "\n";
+    }
     return 0;
 }
