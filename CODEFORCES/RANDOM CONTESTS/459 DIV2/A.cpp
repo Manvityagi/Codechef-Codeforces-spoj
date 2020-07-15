@@ -15,6 +15,18 @@ LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
 
+vector<int> fib(int n)
+{
+    vector<int> f(n + 1);
+    int i;
+    f[0] = 0;
+    f[1] = 1;
+    for (i = 2; i <= n; i++)
+        f[i] = f[i - 1] + f[i - 2];
+
+    return f;
+}
+
 int main()
 {
     static const int _ = []() {
@@ -24,11 +36,21 @@ int main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    vector<int> f = fib(1001);
+    // cin >> t;
     while (t--)
     {
         LL n;
         cin >> n;
-     }
+
+        vector<char> ans(n + 1, 'o');
+        for (int i = 0; i < n, f[i] <= n; i++)
+        {
+            ans[f[i]] = 'O';
+        }
+
+        for (auto i = 1; i <= n; i++)
+            cout << ans[i];
+    }
     return 0;
 }

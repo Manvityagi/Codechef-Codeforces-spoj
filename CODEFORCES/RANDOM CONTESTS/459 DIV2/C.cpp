@@ -24,11 +24,71 @@ int main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-     }
+        string s;
+        cin >> s;
+        int n = s.size();
+
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+        int ans = 0;
+        for (int gap = 0; gap < n; gap++)
+        {
+            for (int i = 0, j = i + gap; i < n, j < n; i++, j++)
+            {
+                if (!(gap & 1))
+                {
+                    dp[i][j] = 0;
+                }
+                else
+                {
+                    if (s[i] == ')' || s[j] == '(')
+                    {
+                        dp[i][j] = 0;
+                    }
+                    else if ((s[i] == '(' && (s[j] == ')' || s[j] == '?')) ||
+                             (s[i] == '?' && (s[j] == ')' || s[j] == '?')))
+                    {
+                        if (gap == 1)
+                            dp[i][j] = 1;
+                        else
+                            dp[i][j] = dp[i + 1][j - 1];
+
+                        //i+1 = ) && j-1 == (
+
+                        if (gap >= 3)
+                        {
+                            if ((s[i + 1] == ')' || s[i + 1] == '?') &&
+                                (s[j - 1] == '(' || s[j - 1] == '?'))
+                            {
+                                if (gap == 3)
+                                {
+                                    dp[i][j] = 1;
+                                }
+                                else
+                                {
+                                    if (i + 2 < n && j - 2 >= 0)
+                                        dp[i][j] = dp[i + 2][j - 2];
+                                }
+                            }
+                        }
+                    }
+                }
+
+                ans += dp[i][j];
+            }
+        }
+
+        // for(int i = 0; i < n; i++)
+        // {
+        //     for(int j = 0; j < n; j++){
+        //         cout << dp[i][j] << " ";
+        //     }
+        //     cout << "\n";
+        // }
+
+        cout << ans << "\n";
+    }
     return 0;
 }
