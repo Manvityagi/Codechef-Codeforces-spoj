@@ -29,6 +29,19 @@ int main()
     {
         LL n;
         cin >> n;
-     }
+        vector<LL> a(n);
+        bool possible = 1;
+        for (auto &i : a)
+        {
+            cin >> i;
+            if (!(i & 1))
+                possible = 0;
+        }
+
+        if (possible)
+            cout << "YES\n";
+        else
+            cout << "NO\n";
+    }
     return 0;
 }
