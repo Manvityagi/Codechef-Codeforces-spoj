@@ -34,7 +34,7 @@ int main()
     vector<int> res;
     int ans = 0;
     for (int x = mini; x <= maxi; x++)
-    {
+    { 
         int xx = x;
         //permutation ka size to n hi hoga
         int totalcount = 1;
@@ -48,7 +48,7 @@ int main()
                 break;
             }
             xx++;
-        }
+        } 
         if (totalcount % p != 0)
         {
             res.push_back(x);
