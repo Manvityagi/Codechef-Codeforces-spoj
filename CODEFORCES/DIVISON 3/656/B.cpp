@@ -29,6 +29,24 @@ int main()
     {
         LL n;
         cin >> n;
-     }
+
+        vector<int> a(n * 2);
+        vector<int> ans(n);
+        unordered_set<int> st;
+        for (auto &i : a)
+        {
+            cin >> i;
+            if (st.find(i) == st.end())
+            {
+                ans.push_back(i);
+            }
+            st.insert(i);
+        }
+
+        for (auto &i : ans)
+            cout << i << " ";
+
+        cout << "\n";
+    }
     return 0;
 }

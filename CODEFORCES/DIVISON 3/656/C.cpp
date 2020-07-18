@@ -29,6 +29,19 @@ int main()
     {
         LL n;
         cin >> n;
-     }
+        vector<LL> a(n);
+        for (auto &i : a)
+            cin >> i;
+
+        int ans = 0;
+        int i = n - 1;
+        while (i >= 1 && a[i - 1] >= a[i])
+            i--;
+
+        while (i >= 1 && a[i - 1] <= a[i])
+            i--;
+
+        cout << i << "\n";
+    }
     return 0;
 }
