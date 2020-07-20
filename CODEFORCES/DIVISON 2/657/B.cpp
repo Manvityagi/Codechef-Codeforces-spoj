@@ -27,8 +27,44 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-     }
+        LL l, r, m;
+        cin >> l >> r >> m;
+        LL a, b, c;
+
+        for (a = l; a <= r; a++)
+        {
+            if (m % a == 0)
+            {
+                b = l, c = l;
+                break;
+            }
+            int rem = m % a;
+
+        
+                // int op1 = m + rem;
+                b = l;
+                c = b + rem;
+                //c-b = b+rem-b = rem
+                if (c <= r)
+                {
+                    break;
+                }
+
+            // int op2 = m - rem;
+            if (m - rem >= a)
+            {
+                c = l;
+                b = c + rem;
+                if (b <= r)
+                {
+                    break;
+                }
+            }
+
+            //c-b = c - c - rem
+        }
+
+        cout << a << " " << b << " " << c << "\n";
+    }
     return 0;
 }

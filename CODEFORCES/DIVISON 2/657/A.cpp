@@ -14,6 +14,39 @@ using namespace std;
 LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
+int countFreq(string &txt, string &pat)
+{
+    int M = pat.length();
+    int N = txt.length();
+    int res = 0;
+
+    for (int i = 0; i <= N - M; i++)
+    {
+        int j;
+        for (j = 0; j < M; j++)
+            if (txt[i + j] != pat[j])
+                break;
+        if (j == M)
+        {
+            res++;
+            j = 0;
+        }
+    }
+
+    return res;
+}
+
+void qhelp(string &s, int st, int end)
+{
+
+    for (int i = st; i < end; i++)
+    {
+        if (s[i] == '?')
+        {
+            s[i] = 'd';
+        }
+    }
+}
 
 int main()
 {
@@ -27,21 +60,63 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n;
+        bool found = 0;
+        int n;
         cin >> n;
-        vector<LL> a(n);
-        bool possible = 1;
-        for (auto &i : a)
+        string str;
+        cin >> str;
+        string target = "abacaba";
+        int f = countFreq(str, target);
+        if (n < 7 || f >= 2)
         {
-            cin >> i;
-            if (!(i & 1))
-                possible = 0;
+            cout << "no\n";
+            continue;
         }
-
-        if (possible)
-            cout << "YES\n";
-        else
-            cout << "NO\n";
+        int freq = 0;
+        for (int i = 0; i + 6 < n; ++i)
+        {
+            bool flag = true;
+            for (int j = 0; j < 7; ++j)
+            {
+                if (target[j] != str[i + j] && str[i + j] != '?')
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                freq = 0;
+                string t = str;
+                qhelp(t, 0, i);
+                for (int j = i; j < i + 7; ++j)
+                    t[j] = target[j - i];
+                qhelp(t, i + 7, n);
+                for (int p = 0; p + 7 <= n; ++p)
+                {
+                    bool flag = true;
+                    for (int j = 0; j < 7; ++j)
+                    {
+                        if (t[p + j] != target[j])
+                        {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag)
+                        freq++;
+                }
+                if (freq == 1)
+                {
+                    cout << "yes\n";
+                    cout << t << "\n";
+                    found = 1;
+                    break;
+                }
+            }
+        }
+        if (!found)
+            cout << "no\n";
     }
     return 0;
 }
