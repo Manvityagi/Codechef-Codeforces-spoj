@@ -14,7 +14,38 @@ using namespace std;
 LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
+const int N = 101;
+vector<int> g[102];
+bool prime[N + 1];
+LL x, y;
+void sieve()
+{
+    memset(prime, true, sizeof(prime));
 
+    for (int p = 2; p * p < N; p++)
+    {
+        if (prime[p] == 1)
+        {
+            for (int i = p * p; i <= n; i++)
+            {
+                prime[i] = 0;
+            }
+        }
+    }
+    bool flag = 1;
+    for (int i = 2; i <= 100; i++)
+    {
+        if (prime[i])
+        {
+            if (flag)
+                x *= i;
+            else
+                y *= i;
+
+            flag = !flag;
+        }
+    }
+}
 int main()
 {
     static const int _ = []() {
@@ -24,11 +55,24 @@ int main()
         return 0;
     }();
     int t = 1;
+    sieve();
     cin >> t;
     while (t--)
     {
         LL n;
         cin >> n;
-     }
+        for (int i = 0; i < n - 1; i++)
+        {
+            int src, dest;
+            cin >> src >> dest;
+            g[src].PB(dest);
+            g[dest].PB(src);
+        }
+
+        vector<int> ans(n);
+
+        BFS();
+    }
+
     return 0;
 }
