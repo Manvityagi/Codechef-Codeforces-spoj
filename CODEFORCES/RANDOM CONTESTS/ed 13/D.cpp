@@ -1,18 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-#define PB push_back
-#define F first
-#define S second
-#define MP make_pair
 #define LL long long
-#define ULL unsigned long long
-#define LB lower_bound
-#define mod 1000000007
-#define loop(i, a, b) for (int i = a; i < b; i++)
-LL n, m;
-int movex[] = {0, 0, 1, -1};
-int movey[] = {1, -1, 0, 0};
+const LL mod = 1e9 + 7;
 LL power(LL x, LL y)
 {
     x %= mod;
@@ -42,21 +31,26 @@ LL divi(LL a, LL b)
 {
     return (mul(a, power(b, mod - 2)) % mod);
 }
+
 int main()
 {
-    static const int _ = []() {
-        ios::sync_with_stdio(false);
-        cin.tie(NULL);
-        cout.tie(NULL);
-        return 0;
-    }();
-    int t;
-    cin >> t;
-    while (t--)
+    LL a, b, n, x;
+    cin >> a >> b >> n >> x;
+    if (a == 0)
     {
-        LL n;
-        cin >> n;
-        vector<int> arr(n);
+        cout << x;
+        return 0;
     }
-    return 0;
+    LL ans;
+    LL t1, t2;
+    LL an = power(a, n);
+    t1 = mul(an, x);
+
+    LL gp = divi(sub(power(a, n), 1), sub(a, 1));
+    t2 = mul(b, (a == 1 ? n : gp));
+
+    // cout << t1 << " " << t2 << "\n";
+    ans = ad(t1, t2);
+
+    cout << ans;
 }

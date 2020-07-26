@@ -8,40 +8,13 @@ using namespace std;
 #define LL long long
 #define ULL unsigned long long
 #define LB lower_bound
-#define mod 1000000007
+#define MOD1 1000000007
+#define MOD2 1000000009
 #define loop(i, a, b) for (int i = a; i < b; i++)
 LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
-LL power(LL x, LL y)
-{
-    x %= mod;
-    LL ans = 1;
-    while (y)
-    {
-        if (y & 1)
-            ans = (ans * x) % mod;
-        y >>= 1LL;
-        x = (x * x) % mod;
-    }
-    return ans;
-}
-LL ad(LL a, LL b)
-{
-    return ((a % mod + b % mod) % mod);
-}
-LL sub(LL a, LL b)
-{
-    return ((a % mod - b % mod + M) % mod);
-}
-LL mul(LL a, LL b)
-{
-    return (((a % mod) * (b % mod)) % mod);
-}
-LL divi(LL a, LL b)
-{
-    return (mul(a, power(b, mod - 2)) % mod);
-}
+
 int main()
 {
     static const int _ = []() {
@@ -50,13 +23,12 @@ int main()
         cout.tie(NULL);
         return 0;
     }();
-    int t;
+    int t = 1;
     cin >> t;
     while (t--)
     {
         LL n;
         cin >> n;
-        vector<int> arr(n);
-    }
+     }
     return 0;
 }

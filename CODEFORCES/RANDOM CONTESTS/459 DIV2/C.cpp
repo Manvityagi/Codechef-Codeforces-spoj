@@ -30,64 +30,88 @@ int main()
         string s;
         cin >> s;
         int n = s.size();
+        vector<vector<int>> dp1(n + 1, vector<int>(n + 1, 0));
+        vector<vector<int>> dp2(n + 1, vector<int>(n + 1, 0));
+        int ans = 0, l, r;
 
-        vector<vector<int>> dp(n, vector<int>(n, 0));
-        int ans = 0;
-        for (int gap = 0; gap < n; gap++)
+        //left to right
+        for (l = 0; l < n; l++)
         {
-            for (int i = 0, j = i + gap; i < n, j < n; i++, j++)
+            int cnt = 0;
+            bool ok = 1;
+            for (r = l; r < n; r++)
             {
-                if (!(gap & 1))
+                if (s[r] == ')')
                 {
-                    dp[i][j] = 0;
+                    cnt--;
                 }
                 else
                 {
-                    if (s[i] == ')' || s[j] == '(')
-                    {
-                        dp[i][j] = 0;
-                    }
-                    else if ((s[i] == '(' && (s[j] == ')' || s[j] == '?')) ||
-                             (s[i] == '?' && (s[j] == ')' || s[j] == '?')))
-                    {
-                        if (gap == 1)
-                            dp[i][j] = 1;
-                        else
-                            dp[i][j] = dp[i + 1][j - 1];
-
-                        //i+1 = ) && j-1 == (
-
-                        if (gap >= 3)
-                        {
-                            if ((s[i + 1] == ')' || s[i + 1] == '?') &&
-                                (s[j - 1] == '(' || s[j - 1] == '?'))
-                            {
-                                if (gap == 3)
-                                {
-                                    dp[i][j] = 1;
-                                }
-                                else
-                                {
-                                    if (i + 2 < n && j - 2 >= 0)
-                                        dp[i][j] = dp[i + 2][j - 2];
-                                }
-                            }
-                        }
-                    }
+                    cnt++;
                 }
 
-                ans += dp[i][j];
+                if (cnt < 0)
+                {
+                    ok = 0;
+                }
+                dp1[l][r] = ok;
             }
         }
 
-        // for(int i = 0; i < n; i++)
-        // {
-        //     for(int j = 0; j < n; j++){
-        //         cout << dp[i][j] << " ";
-        //     }
-        //     cout << "\n";
-        // }
+        // right to left
+        for (r = 0; r < n; r++)
+        {
+            int cnt = 0;
+            bool ok = 1;
+            for (l = 0; l < r; l++)
+            {
+                if (s[l] == '(')
+                {
+                    cnt--;
+                }
+                else
+                {
+                    cnt++;
+                }
 
+                if (cnt < 0)
+                {
+                    ok = 0;
+                }
+                dp2[l][r] = ok;
+            }
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                cout << dp1[i][j] << " ";
+            }
+            cout << "\n";
+        }
+
+        cout << "\n";
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                cout << dp2[i][j] << " ";
+            }
+            cout << "\n";
+        }
+
+        for (int l = 0; l < n; l++)
+        {
+            for (int r = 0; r < n; r++)
+            {
+                if (dp1[l][r] && dp2[l][r] && (r - l + 1) % 2 == 0)
+                {
+                    ans++;
+                }
+            }
+        }
         cout << ans << "\n";
     }
     return 0;
