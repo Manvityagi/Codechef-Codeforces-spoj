@@ -32,7 +32,7 @@ LL ad(LL a, LL b)
 }
 LL sub(LL a, LL b)
 {
-    return ((a % mod - b % mod + M) % mod);
+    return ((a % mod - b % mod + mod) % mod);
 }
 LL mul(LL a, LL b)
 {

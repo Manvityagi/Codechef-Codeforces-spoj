@@ -7,18 +7,40 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n, m, x, y;
+        LL n, m, x, y, ans = 0;
         cin >> n >> m >> x >> y;
-        LL first = min(x, y);
-        LL second = y - first;
-        LL tot = n * m;
+        if (n == 0 || m == 0 || x == 0 || y == 0)
+        {
+            cout << 0 << "\n";
+            continue;
+        }
+        LL total = n * m;
+        //case 1: n*m = odd
+        if (total & 1)
+        {
+            if (x >= y)
+            {
+                ans = total / 2 * x + x;
+            }
+            else
+            {
+                x = y;
+                ans = total / 2 * x + x;
+            }
+        }
+        else //case 2: n*m = even
+        {
+            if (x >= y)
+            {
+                ans = total / 2 * x;
+            }
+            else
+            {
+                x = y;
+                ans = total / 2 * x;
+            }
+        }
 
-        LL small = tot / 2, big = tot - small; //multipliers
-
-        if (first < second)
-            swap(first, second);
-
-        LL ans = big * first + small * second;
         cout << ans << "\n";
     }
     return 0;

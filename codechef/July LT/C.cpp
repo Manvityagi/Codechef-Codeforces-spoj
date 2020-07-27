@@ -15,11 +15,6 @@ LL n, m;
 LL movex[] = {0, 0, 1, -1};
 LL movey[] = {1, -1, 0, 0};
 
-LL f(LL x, LL b)
-{
-    return (x << (int(log(b) + 1))) + b;
-}
-
 signed main()
 {
     static const LL _ = []() {
@@ -35,22 +30,36 @@ signed main()
         LL n;
         cin >> n;
         vector<LL> a(n);
-        LL mx = LLONG_MIN, mn = LLONG_MAX;
+        unordered_map<int, int> mp;       //bitcount, minimum number
+        unordered_map<int, int> bitcount; //number,bits in the number
         for (auto &i : a)
         {
             cin >> i;
+            int bits = 0;
+            LL temp = i;
+            while (temp)
+                temp >>= 1, bits++;
+            mp[i] = bits;
+            if (mp.find(bits) == mp.end())
+                mp[bits] = i;
+            else
+                mp[bits] = i < mp[bits] ? i : mp[bits];
         }
         LL ans = 0;
-
-        for (int i = 0; i < n; i++)
+        int l, r, b;
+        for (auto i : a)
         {
-            for (int j = i; j < n; j++)
+            l = bitcount[i];
+
+            for (auto p : mp)
             {
-                LL cur = abs(f(a[i], a[j]) - f(a[j], a[i]));
-                ans = max(cur, ans);
-                // cout << xy << " " << yx << "\n";
+                r = p.F;
+                b = p.S;
+                LL res = i * ((1LL << r) - 1) - b * ((1LL << l) - 1);
+                ans = max(res, ans);
             }
         }
+
         cout << ans << "\n";
     }
     return 0;
