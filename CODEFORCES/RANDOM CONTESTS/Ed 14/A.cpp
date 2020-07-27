@@ -24,31 +24,43 @@ int main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
         LL n;
         cin >> n;
         vector<LL> a(n);
-        for (auto &i : a)
-            cin >> i;
-        vector<string> ans(n + 1);
-        string beg;
-        for (int i = 0; i < 100; i++)
-            beg += 'a';
-           
-         ans[0] = beg;
-
-        for (int i = 1; i <= n; i++)
+        bool possible = 1;
+        for (int i = 0; i < n; i++)
         {
-            ans[i] = ans[i - 1];
-            ans[i][a[i - 1]] = ans[i][a[i - 1]] != 'z' ? ans[i][a[i - 1]] + 1 : 'a';
+            cin >> a[i];
+        }
+        if (n == 1)
+        {
+            if (a[0] == 0)
+            {
+                cout << "NO\n";
+            }
+            else
+            {
+                cout << "YES\n";
+            }
+
+            return 0;
         }
 
-        for (auto s : ans)
-            cout << s << "\n";
-           
-          //cout << "\n";
+        int cnt = 0;
+        for (int i = 0; i < n; i++)
+        {
+            cnt += a[i];
+        }
+
+        if (cnt != n - 1)
+            possible = 0;
+        if (possible)
+            cout << "YES\n";
+        else
+            cout << "NO\n";
     }
     return 0;
 }
