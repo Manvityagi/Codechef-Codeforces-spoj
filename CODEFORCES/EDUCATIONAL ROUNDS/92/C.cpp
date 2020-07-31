@@ -29,42 +29,30 @@ int main()
     {
         string s;
         cin >> s;
-        int n = s.size();
-        int even = 0,odd = 0,len = 0, ans = 0, i, j, k,cnt1,cnt2;
-        char i, j, p1, p2;
-        //chose (i,j) i - even , j - odd
-        for(i = '0'; i <= '9'; i++){
-            for(j = '0'; j <= '9'; j++){
-                len=0,even=0,odd=0;
-                for(k = 0; k < n; k++){
-                    if(i == s[k]){
-                        if(!(len & 1))
-                            even++, len++;
+        int n = s.size(),max_len = 0;
+        char even,odd,echar,ochar;
+        for(even = '0'; even <= '9'; even++){
+            for(odd = '0'; odd <= '9'; odd++){
+                int ecnt = 0, ocnt = 0, curr_len = 0;
+                for(int k = 0; k < n; k++){
+                    if(even == s[k] && !(curr_len & 1)){
+                        ecnt++,curr_len++;
                     }
-                    else if(j == s[k]){
-                        if(len&1)
-                            odd++,len++;
+                    else if(odd == s[k] && (curr_len & 1)){
+                        ocnt++,curr_len++;
                     }
                 }
+                if(even!=odd)
+                    curr_len = 2*min(ocnt,ecnt);
+                else
+                    curr_len = ocnt+ecnt;                
+                if(curr_len > max_len){
+                    max_len = curr_len;
+                    echar = even, ochar = odd;
+                }
             }
-            if(ans > len){
-                ans=len;
-                p1=i,p2=j;
-                cnt1 = even, cnt2 = odd;
-            }
         }
-        vector<char> res(ans);
-        for(int t = 0; t < ans; t+=2){
-            res[t] = p1;
-        }
-        for(int r = 1; r < ans; r += 2){
-            res[r] = p2;
-        }
-
-        for(auto a : res){
-            cout << a;
-        }
-        cout << "\n";
+        cout << n - max_len << "\n";
     }
     return 0;
 }
