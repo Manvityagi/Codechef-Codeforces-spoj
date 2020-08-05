@@ -26,7 +26,6 @@ void SOE(vector<int> &primes)
 int main()
 {
     vector<int> primes;
-
     SOE(primes);
     int t;
     cin >> t;
