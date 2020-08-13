@@ -12,8 +12,8 @@ using namespace std;
 #define MOD2 1000000009
 #define loop(i, a, b) for (int i = a; i < b; i++)
 LL n, m;
-int movex[] = {0, 0, 1, -1};
-int movey[] = {1, -1, 0, 0};
+int movex[] ={ 0, 0, 1, -1 };
+int movey[] ={ 1, -1, 0, 0 };
 
 int main()
 {
@@ -27,19 +27,39 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-        vector<LL> a(n);
-        bool possible = 1;
+        LL n, m;
+        cin >> n >> m;
+        vector<LL> a(n), b(m);
+        bool possible = 0;
         for (auto &i : a)
-        {
             cin >> i;
-            if (!(i & 1))
-                possible = 0;
+        for (auto &i : b)
+            cin >> i;
+
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
+
+        int ans, i = 0, j = 0;
+        while (i < n && j < m)
+        {
+            if(a[i] == b[j]){
+                ans = a[i];
+                possible = 1;
+                break;
+            }
+            else if(a[i] < b[j]){
+                i++;
+            }
+            else{
+                j++;
+            }
         }
 
-        if (possible)
+
+        if (possible) {
             cout << "YES\n";
+            cout << 1 << " " << ans << "\n";
+        }
         else
             cout << "NO\n";
     }

@@ -12,8 +12,8 @@ using namespace std;
 #define MOD2 1000000009
 #define loop(i, a, b) for (int i = a; i < b; i++)
 LL n, m;
-int movex[] ={ 0, 0, 1, -1 };
-int movey[] ={ 1, -1, 0, 0 };
+int movex[] = {0, 0, 1, -1};
+int movey[] = {1, -1, 0, 0};
 
 int main()
 {
@@ -24,27 +24,23 @@ int main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-        vector<int> a(n);
-        for (auto &i : a) cin >> i;
-
-        int k = 0;
-
-        while (k < n && a[k] == 1)
-            k++;
-
-        if (k == n) {
-            if (k&2) cout << "First\n";
-            else cout << "Second\n";
+        LL n, m;
+        cin >> n >> m;
+        vector<int> a(n), b(m);
+        for(auto &i : a) cin >> i;
+        for(auto &i : b) cin >> i;
+        LL ans = 0;
+        for(int i = 0; i < n; i++){
+            int currc = 1e8;
+            for(int j = 0; j < m; j++){
+                currc = min(currc,a[i] & b[j]);
+            }
+            ans |= currc;
         }
-        else {
-            if (k&2) cout << "Second\n";
-            else cout << "First\n";
-        }
-    }
+        cout << ans << "\n";
+     }
     return 0;
 }
