@@ -32,26 +32,17 @@ int main()
         vector<LL> a(n);
         bool possible = 1;
         for (auto &i : a)
-        {
             cin >> i;
-        }
+        vector<LL> sa(n);
+        sa = a;
+        sort(sa.rbegin(), sa.rend());
+        //if everything is unique and sorted in descending order - NO, otherwise YES
+        if (sa == a && unique(a.begin(),a.end()) - a.begin() == n) possible = 0; 
 
-        if(n == 2){
-            if(a[0] > a[1]) possible = 0; 
-        }
-
-        int swaps = 0;
-        sort(a.begin(),a.end());
-        for(int i = 0; i < n; i++){
-            if(a[i-1] > a[i]) swaps++;
-        }
-
-        if(swaps >= n-1) possible = 0;
-
-        if (possible)
-            cout << "YES\n";
-        else
-            cout << "NO\n";
+            if (possible)
+                cout << "YES\n";
+            else
+                cout << "NO\n";
     }
     return 0;
 }

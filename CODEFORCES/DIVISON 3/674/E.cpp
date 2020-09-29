@@ -27,11 +27,8 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n, q;
-        cin >> n >> q;
-        vector<int> s; 
-        for(auto &i : s) cin >> i; 
-        
+        LL n;
+        cin >> n;
      }
     return 0;
 }

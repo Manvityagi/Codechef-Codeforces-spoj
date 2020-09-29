@@ -27,11 +27,11 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n, q;
-        cin >> n >> q;
-        vector<int> s; 
-        for(auto &i : s) cin >> i; 
-        
-     }
+        LL n,x;
+        cin >> n >> x;
+
+        cout << n/x + 2 << "\n";
+       
+    }
     return 0;
 }

@@ -15,6 +15,15 @@ LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
 
+int findMSB(int x){
+    int cnt = 0, msb; 
+    while(x > 0){
+        if(x%2) msb = cnt; 
+        x /= 2;
+    }
+    return msb; 
+}
+
 int main()
 {
     static const int _ = []() {
@@ -30,15 +39,19 @@ int main()
         LL n;
         cin >> n;
         vector<LL> a(n); 
-        for(auto &i : a) cin >> i; 
-
+        map<int,int> mp; 
+        for(auto &i : a) {
+            cin >> i;
+            int msb = findMSB(i);
+            mp[msb]++;
+        } 
         int ans = 0;
 
-        for(int i = 0; i < n; i++){
-            for(int j = i+1; j < n; j++){
-                if(a[i] & a[j] > a[i] ^ a[j]) ans++;
-            }
+        for(auto x : mp){
+            int curr = x.second; 
+            ans += ((curr) * (curr - 1))/2;
         }
+
         cout << ans << "\n";
      }
     return 0;

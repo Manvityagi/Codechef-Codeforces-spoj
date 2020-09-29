@@ -27,11 +27,19 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n, q;
-        cin >> n >> q;
-        vector<int> s; 
-        for(auto &i : s) cin >> i; 
-        
+        LL n;
+        cin >> n;
+        if(n == 1) {
+            cout << 0 << "\n"; 
+            continue;
+        }
+
+        LL ans  = LONG_LONG_MAX;
+        for(LL i = 1; i*i <= n; i++){
+            ans = min(ans, i-2 + (n-i+1)/i); 
+        }	
+
+        cout << ans << "\n"; 
      }
     return 0;
 }

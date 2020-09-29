@@ -15,6 +15,7 @@ LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
 
+
 int main()
 {
     static const int _ = []() {
@@ -24,14 +25,24 @@ int main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
     while (t--)
     {
-        LL n, q;
-        cin >> n >> q;
-        vector<int> s; 
-        for(auto &i : s) cin >> i; 
-        
+        LL n;
+        cin >> n;
+        vector<int> arr(n); 
+        for(auto &i : arr) cin >> i; 
+        vector<int> pref(n);
+        pref = arr; 
+
+        int ans = 0; 
+        for(int i = 1; i < n; i++) {
+            pref[i] += pref[i-1]; 
+            if(pref[i] == 0){
+                ans++;
+                if(i+1 < n && arr[i] == -1*arr[i+1]) ans++;
+            }
+        } 
+        cout << ans << "\n";
      }
     return 0;
 }
