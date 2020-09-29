@@ -15,8 +15,7 @@ LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
 
-#define int LL
-signed main()
+int main()
 {
     static const int _ = []() {
         ios::sync_with_stdio(false);
@@ -25,27 +24,24 @@ signed main()
         return 0;
     }();
     int t = 1;
+    // cin >> t;
     while (t--)
     {
         LL n;
         cin >> n;
-        vector<int> arr(n); 
-        for(auto &i : arr) cin >> i; 
-        unordered_map<int,int> mp; 
-        int ans = 0; 
-        mp[0]++;
-        int s = 0; 
-        for(int i = 0; i < n; i++) {
-            s += arr[i];
-            if(mp.find(s) != mp.end()) {
-            	ans++;
-            	mp.clear();
-            	mp[0]++;
-            	s = arr[i];
+        string s; 
+        cin >> s;
+        int ans = 0, currx = 0; 
+        for(int i = 0; i < n; i++){
+            if(s[i] == 'x') currx++;
+            else currx = 0; 
+            if(currx == 3){
+                ans++;
+                currx = 2;
             }
-        	mp[s]++;
-        } 
-        cout << ans << "\n";
+        }
+
+        cout << ans;
      }
     return 0;
 }
