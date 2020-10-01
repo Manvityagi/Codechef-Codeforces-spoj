@@ -24,15 +24,11 @@ int main()
         return 0;
     }();
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--)
     {
         LL n;
         cin >> n;
-        vector<LL> a(n);
-        for(auto &i : a) cin >> i;
-
-    
      }
     return 0;
 }

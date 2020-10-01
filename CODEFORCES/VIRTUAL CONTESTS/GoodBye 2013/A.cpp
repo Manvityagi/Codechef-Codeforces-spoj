@@ -27,12 +27,20 @@ int main()
     // cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-        vector<LL> a(n);
-        for(auto &i : a) cin >> i;
+        LL a,b;
+        cin >> a >> b;
 
-    
-     }
+        int currWore = 0,ans = 0; 
+        while(a > 0){
+            a--;
+            ans++;
+            currWore++; 
+            if(currWore == b){
+                currWore = 0; 
+                ans++;
+            }
+        }
+      cout << ans;
+    }
     return 0;
 }
