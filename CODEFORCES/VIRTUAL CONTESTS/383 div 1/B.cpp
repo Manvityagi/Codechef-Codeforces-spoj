@@ -41,15 +41,15 @@ signed main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
-        LL n, m, w;
-        cin >> n >> m >> w;
+        LL n, m, cap;
+        cin >> n >> m >> cap;
         for(int i = 1; i <= n; i++) parent[i] = i;
 
-        for(auto &i : wts) cin >> i; 
-        for(auto &i : bts) cin >> i; 
+        for(int i = 1; i <= n; i++) cin >> wts[i]; 
+        for(int i = 1; i <= n; i++) cin >> bts[i]; 
         
         for(int i = 0; i < m; i++){
             int x,y;
@@ -73,6 +73,21 @@ signed main()
             mp[e.F].emplace_back(weightSum,beautySum);
         }
 
+        vector<vector<int>> dp(n+1,vector<int>(cap+1));
+
+        for(int i = 1; i <= n; i++){
+            for(int w = 0; w <= cap; w++){
+                int op1 = dp[i-1][w];
+                int op2 = INT_MIN; 
+                
+                for(auto p : mp[i]){
+                    if(w-p.F >= 0) op2 = max(op2,dp[i-1][w-p.F]+p.S);
+                }
+
+                dp[i][w] = max({dp[i][w],op1,op2});
+            }
+        }
+        cout << dp[n][cap];
      }
     return 0;
 }
