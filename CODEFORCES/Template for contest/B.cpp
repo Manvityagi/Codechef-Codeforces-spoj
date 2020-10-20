@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -10,12 +11,15 @@ using namespace std;
 #define LB lower_bound
 #define MOD1 1000000007
 #define MOD2 1000000009
-#define loop(i, a, b) for (int i = a; i < b; i++)
-LL n, m;
-int movex[] = {0, 0, 1, -1};
-int movey[] = {1, -1, 0, 0};
+#define int LL
+#define all(a) a.begin(), a.end()
+const int maxn = 1e5 + 1;
 
-int main()
+void solve()
+{
+}
+
+signed main()
 {
     static const int _ = []() {
         ios::sync_with_stdio(false);
@@ -25,10 +29,9 @@ int main()
     }();
     int t = 1;
     cin >> t;
-    while (t--)
-    {
-        LL n;
-        cin >> n;
-     }
+
+    while (t--){
+        solve();
+    }
     return 0;
 }

@@ -10,12 +10,27 @@ using namespace std;
 #define LB lower_bound
 #define MOD1 1000000007
 #define MOD2 1000000009
+#define all(a) a.begin(), a.end()
 #define loop(i, a, b) for (int i = a; i < b; i++)
-LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
+#define int LL 
+int findX(int A, int B)
+{
+    int j = 0, x = 0;
+    while (A || B)
+    {
+        if ((A & 1) && (B & 1))
+            x += (1 << j);
 
-int main()
+        A >>= 1;
+        B >>= 1;
+        j += 1;
+    }
+    return x;
+}
+
+signed main()
 {
     static const int _ = []() {
         ios::sync_with_stdio(false);
@@ -27,11 +42,12 @@ int main()
     cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-        vector<int> arr(n); 
-        for(auto i : arr) cin >> i;
-        
-     }
+        LL a, b;
+        cin >> a >> b;
+
+        LL X = findX(a, b);
+
+        cout << (a ^ X) + (b ^ X) << "\n";
+    }
     return 0;
 }

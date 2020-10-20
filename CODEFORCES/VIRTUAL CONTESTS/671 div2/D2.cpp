@@ -31,19 +31,34 @@ signed main()
         cin >> n;
         vector<LL> a(n); 
         for(auto &i : a) cin >> i; 
+        if(n == 1 || n == 2){
+        	cout << 0 << "\n"; 
+        	for(auto i : a) cout << i << " ";
+        	continue;
+        }
         sort(a.begin(),a.end());
-        cout << n/2 << "\n"; 
-        vector<int> ans; 
+        // cout << (n-1)/2 << "\n";
+        int cnt = 0; 
+        vector<int> ans(n); 
+		int idx = 0; 
 
-        for(int idx = 0, j = n/2 ; j < n && idx < n; j++, idx += 2){
-            ans[idx] = a[j]; 
+        int idx = 0;
+        for(int i = 1; i < n; i+=2){
+            ans[i] = a[idx++];
         }
 
-        for(int idx = 1, i = 0; i < n && idx < n; i++,idx += 2){
-            ans[idx] = a[i];
+        for(int i = 0; i < n; i+=2){
+            ans[i] = a[idx++];
         }
 
-        for(auto i : ans) cout << i << " ";
+        for(int i = 1; i < n-1; i++){
+            if(ans[i] < ans[i-1] && ans[i] < ans[i+1]) cnt++;
+        }
+
+        cout << cnt << "\n";
+        for(auto i : ans) cout << i << " " ;
+        cout << "\n";
+        
      }
     return 0;
 }

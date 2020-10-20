@@ -10,15 +10,11 @@ using namespace std;
 #define LB lower_bound
 #define MOD1 1000000007
 #define MOD2 1000000009
-#define int LL
 #define all(a) a.begin(), a.end()
-const int maxn = 1e5 + 1;
-
-void solve()
-{
-}
-
-signed main()
+#define loop(i, a, b) for (int i = a; i < b; i++)
+int movex[] = {0, 0, 1, -1};
+int movey[] = {1, -1, 0, 0};
+int main()
 {
     static const int _ = []() {
         ios::sync_with_stdio(false);
@@ -27,10 +23,14 @@ signed main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
-
+    // cin >> t;
     while (t--){
-        solve();
+       int n;
+       cin >> n;
+       vector<int> a(n+1);
+       for(int i = 1; i <= n; i++) cin >> a[i];
+
+       
     }
     return 0;
 }

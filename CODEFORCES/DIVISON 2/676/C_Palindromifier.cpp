@@ -10,11 +10,10 @@ using namespace std;
 #define LB lower_bound
 #define MOD1 1000000007
 #define MOD2 1000000009
+#define all(a) a.begin(), a.end()
 #define loop(i, a, b) for (int i = a; i < b; i++)
-LL n, m;
 int movex[] = {0, 0, 1, -1};
 int movey[] = {1, -1, 0, 0};
-
 int main()
 {
     static const int _ = []() {
@@ -24,11 +23,21 @@ int main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
-        LL n;
-        cin >> n;
-     }
+        string s;
+        cin >> s;
+        int n = s.size();
+        if (n >= 3)
+        {
+            cout << "3\n";
+            cout << "L " << n - 1 << "\n";
+            cout << "R " << n - 1 << "\n";
+            cout << "R " << (2 * n - 1) << "\n";
+        } else {
+            cout << "0\n";
+        }
+    }
     return 0;
 }
