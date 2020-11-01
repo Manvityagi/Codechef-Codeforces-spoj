@@ -14,19 +14,38 @@ using namespace std;
 #define int LL
 #define pii pair<int,int>
 #define all(a) a.begin(), a.end()
-const int maxn = 1e5 + 1;
+const int maxn = 1e5 + 5;
+vector<int> g[maxn];
+
+//mex,subtreeSize
+pair<int,int> dfs(int node){
+    if(g[node].size() == 0) return {1,1};
+
+    auto ans = MP(0,0); 
+    for(auto nbr : g[node]){
+        auto curr = dfs(nbr);
+        ans.S += curr.S;
+        if(curr.F > ans.F){
+            ans = curr; 
+        }
+    }
+    ans.S += 1;
+    ans.F = ans.S + ans.F;
+    return ans;
+}
 
 void solve()
 {
     int n;
     cin >> n;
-    vector<int> g[n+1];
     for(int i = 1; i <= n-1; i++){
         int p;
         cin >> p;
-        g[i+1].emplace_back(p);
+        // g[i+1].emplace_back(p);
         g[p].emplace_back(i+1);
     }
+
+    cout << dfs(1).F << "\n";
 }
 
 signed main()

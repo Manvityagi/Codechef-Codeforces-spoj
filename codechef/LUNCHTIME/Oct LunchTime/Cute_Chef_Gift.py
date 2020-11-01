@@ -14,9 +14,7 @@ while t > 0:
             right[i] = right[i] * right[i + 1]
         ans = -1
         for i in range(0, n - 1):
-            part1 = left[i]
-            part2 = right[i + 1]
-            if math.gcd(part1, part2) == 1:
+            if math.gcd(left[i], right[i + 1]) == 1:
                 ans = i + 1
                 break
     except EOFError as e:

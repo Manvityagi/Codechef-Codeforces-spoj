@@ -32,12 +32,26 @@ void solve()
     a.clear();
     a.resize(n); 
     for(auto &i : a) cin >> i;
+    int orig = cal();
+    // cout << "orig " << orig << "\n";
     while(q--){
         int x,y;
         cin >> x >> y;
         x--;
+        if(x){
+            orig -= (a[x] != a[x-1]);
+        }
+        if(x+1 < n){
+            orig -= (a[x] != a[x+1]);
+        }
         a[x] = y;
-        cout << cal() << "\n";
+        if(x){
+            orig += (a[x] != a[x-1]);
+        }
+        if(x+1 < n){
+            orig += (a[x] != a[x+1]);
+        }
+        cout << orig << "\n";
     }
 }
 
