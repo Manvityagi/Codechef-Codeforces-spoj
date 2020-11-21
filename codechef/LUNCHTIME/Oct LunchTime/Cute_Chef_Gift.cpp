@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -14,40 +13,82 @@ using namespace std;
 #define int LL
 #define pii pair<int, int>
 #define all(a) a.begin(), a.end()
-const int maxn = 1e5 + 1;
+const int maxn = 1e5 + 5;
+int spf[maxn], prime[maxn];
+void sieve()
+{
+    memset(prime, 1, sizeof(prime));
+    prime[0] = prime[1] = 0;
+    for (int i = 0; i < maxn; i++)
+        spf[i] = i;
+    for (int i = 2; i * i <= maxn; i++)
+    {
+        if (prime[i])
+        {
+            for (int j = i * i; j <= maxn; j += i)
+            {
+                if (prime[j])
+                    spf[j] = i;
+                prime[j] = 0;
+            }
+        }
+    }
+}
+
+vector<int> getFactors(int x)
+{
+    vector<int> factors;
+    while (x != 1)
+    {
+        factors.emplace_back(spf[x]);
+        x /= spf[x];
+    }
+    return factors;
+}
 
 void solve()
 {
     int n;
     cin >> n;
-    vector<int> a(n);
-    for (auto &i : a)
-        cin >> i;
-
-    vector<int> left(a), right(a);
+    unordered_map<int, pii> ranges; //unsafe ranges
+    for (int i = 0; i < n; i++)
+    {
+        int num;
+        cin >> num;
+        vector<int> factors = getFactors(num);
+        for (auto f : factors)
+        {
+            if (ranges.find(f) == ranges.end())
+            {
+                ranges[f] = MP(i, i);
+            }
+            else
+            {
+                ranges[f].S = i;
+            }
+        }
+    }
+    vector<int> diff(n + 1, 0);
+    for (auto p : ranges)
+    {
+        int l = p.S.F, r = p.S.S;
+        diff[l]++;
+        diff[r]--;
+    }
 
     for (int i = 1; i < n; i++)
-        left[i] *= left[i - 1];
-    for (int i = n - 2; i >= 0; i--)
-        right[i] *= right[i + 1];
-    
-    for(int i = 0; i < n; i++) cout << left[i] << " ";
-    cout << "\n";
-    for(int i = 0; i < n; i++) cout << right[i] << " ";
-    cout << "\n";
-     
+        diff[i] += diff[i - 1];
+
     int ans = -1;
-    for (int i = 0; i < n - 1; i++)
+    for (int i = 0; i < n; i++)
     {
-        int part1 = left[i];
-        int part2 = right[i + 1];
-        if (__gcd(part1, part2) == 1)
+        if (diff[i] == 0)
         {
-            ans = i + 1;
+            ans = i;
             break;
         }
     }
-    cout << ans << "\n";
+    cout << ans+1 << "\n";
 }
 
 signed main()
@@ -60,7 +101,7 @@ signed main()
     }();
     int t = 1;
     cin >> t;
-
+    sieve();
     while (t--)
     {
         solve();

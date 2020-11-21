@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -12,12 +11,21 @@ using namespace std;
 #define MOD1 1000000007
 #define MOD2 1000000009
 #define int LL
-#define pii pair<int,int>
 #define all(a) a.begin(), a.end()
 const int maxn = 1e5 + 1;
 
 void solve()
 {
+    int n,m,k;
+    cin >> n >> m >> k;
+    vector<vector<int>> a(n,vector<int>(m));
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            cin >> a[i][j];
+        }
+    }
+    
+    
 }
 
 signed main()
@@ -31,7 +39,8 @@ signed main()
     int t = 1;
     cin >> t;
 
-    while (t--){
+    while (t--)
+    {
         solve();
     }
     return 0;

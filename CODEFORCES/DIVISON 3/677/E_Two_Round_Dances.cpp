@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -12,12 +11,39 @@ using namespace std;
 #define MOD1 1000000007
 #define MOD2 1000000009
 #define int LL
-#define pii pair<int,int>
 #define all(a) a.begin(), a.end()
 const int maxn = 1e5 + 1;
+int NcR(int n, int r)
+{
+
+    long long p = 1, k = 1;
+
+    if (n - r < r)
+        r = n - r;
+
+    if (r != 0)
+    {
+        while (r)
+        {
+            p *= n;
+            k *= r;
+            long long m = __gcd(p, k);
+
+            p /= m;
+            k /= m;
+
+            n--;
+            r--;
+        }
+    }
+    else
+        p = 1;
+    return p;
+}
 
 void solve()
 {
+    
 }
 
 signed main()
@@ -31,7 +57,8 @@ signed main()
     int t = 1;
     cin >> t;
 
-    while (t--){
+    while (t--)
+    {
         solve();
     }
     return 0;

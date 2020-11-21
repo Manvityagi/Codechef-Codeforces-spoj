@@ -18,6 +18,24 @@ const int maxn = 1e5 + 1;
 
 void solve()
 {
+    int n;
+    cin >> n; 
+    int ans = 0;
+   
+    for(int i = 0; i < n; i++){
+        int a,b;
+        cin >> a >> b;
+        // cout << a << ": " << b << "\n";
+        a--;
+        int s2 = (b * (b + 1))/2;
+        int s1 = (a * (a+1))/2;
+        int curr = s2 - s1;
+        // cout << s1 << "  : " << s2 << "\n";
+        // cout << curr << "\n";
+        ans += (s2 - s1);
+    }
+    cout << ans;
+    
 }
 
 signed main()
@@ -29,7 +47,7 @@ signed main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--){
         solve();

@@ -18,6 +18,13 @@ const int maxn = 1e5 + 1;
 
 void solve()
 {
+    int n;
+    cin >> n;
+    if(n&1){
+        cout << "Black";
+    } else {
+    cout << "White";
+    }
 }
 
 signed main()
@@ -29,7 +36,7 @@ signed main()
         return 0;
     }();
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--){
         solve();

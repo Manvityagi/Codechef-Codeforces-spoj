@@ -12,21 +12,25 @@ using namespace std;
 #define MOD1 1000000007
 #define MOD2 1000000009
 #define int LL
-#define pii pair<int,int>
+#define pii pair<int, int>
 #define all(a) a.begin(), a.end()
 const int maxn = 1e5 + 5;
 vector<int> g[maxn];
 
 //mex,subtreeSize
-pair<int,int> dfs(int node){
-    if(g[node].size() == 0) return {1,1};
+pair<int, int> dfs(int node)
+{
+    if (g[node].size() == 0)
+        return {1, 1};
 
-    auto ans = MP(0,0); 
-    for(auto nbr : g[node]){
+    auto ans = MP(0LL, 0LL);
+    for (auto nbr : g[node])
+    {
         auto curr = dfs(nbr);
         ans.S += curr.S;
-        if(curr.F > ans.F){
-            ans = curr; 
+        if (curr.F > ans.F)
+        {
+            ans.F = curr.F;
         }
     }
     ans.S += 1;
@@ -38,11 +42,14 @@ void solve()
 {
     int n;
     cin >> n;
-    for(int i = 1; i <= n-1; i++){
+    for (int i = 0; i <= n; i++)
+        g[i].clear();
+    for (int i = 1; i <= n - 1; i++)
+    {
         int p;
         cin >> p;
         // g[i+1].emplace_back(p);
-        g[p].emplace_back(i+1);
+        g[p].emplace_back(i + 1);
     }
 
     cout << dfs(1).F << "\n";
@@ -59,7 +66,8 @@ signed main()
     int t = 1;
     cin >> t;
 
-    while (t--){
+    while (t--)
+    {
         solve();
     }
     return 0;
