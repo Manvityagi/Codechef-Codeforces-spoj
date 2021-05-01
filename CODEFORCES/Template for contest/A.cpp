@@ -18,6 +18,7 @@ const int maxn = 1e5 + 1;
 
 void solve()
 {
+   
 }
 
 signed main()
